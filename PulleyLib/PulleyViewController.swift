@@ -421,7 +421,18 @@ open class PulleyViewController: UIViewController, PulleyDrawerViewControllerDel
         }
     }
     
-    /// The opacity of the drawer shadow.
+	/// The opacity of the drawer shadow.
+	@IBInspectable public var shadowColor: UIColor = .black {
+		didSet {
+			if self.isViewLoaded
+			{
+				drawerShadowView.layer.shadowColor = shadowColor.cgColor
+				self.view.setNeedsLayout()
+			}
+		}
+	}
+
+	/// The opacity of the drawer shadow.
     @IBInspectable public var shadowOpacity: Float = 0.1 {
         didSet {
             if self.isViewLoaded
@@ -786,6 +797,7 @@ open class PulleyViewController: UIViewController, PulleyDrawerViewControllerDel
         drawerShadowView.layer.shadowOpacity = shadowOpacity
         drawerShadowView.layer.shadowRadius = shadowRadius
         drawerShadowView.layer.shadowOffset = shadowOffset
+		drawerShadowView.layer.shadowColor = shadowColor.cgColor
         drawerShadowView.backgroundColor = UIColor.clear
         
         drawerContentContainer.backgroundColor = UIColor.clear
